@@ -14,7 +14,7 @@ public abstract class Terminal {
     }
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String code;
     private String ville;

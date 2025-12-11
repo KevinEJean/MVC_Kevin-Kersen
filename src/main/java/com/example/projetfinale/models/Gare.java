@@ -1,10 +1,9 @@
 package com.example.projetfinale.models;
 
-import com.example.projetfinale.models.trajet.TypeTrajet;
-
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
@@ -16,7 +15,7 @@ public class Gare extends Terminal {
     }
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String code;
     private String ville;

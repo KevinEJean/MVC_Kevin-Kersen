@@ -1,7 +1,5 @@
 package com.example.projetfinale.services;
 
-import com.example.projetfinale.models.Aeroport;
-import com.example.projetfinale.models.Operateur;
 import com.example.projetfinale.models.trajet.*;
 import com.example.projetfinale.repositories.FabriqueTrajet;
 import org.springframework.stereotype.Service;

@@ -2,7 +2,6 @@ package com.example.projetfinale.controllers;
 
 import com.example.projetfinale.models.Offres;
 import com.example.projetfinale.models.SearchCriteriaDTO;
-import com.example.projetfinale.models.trajet.Trajet;
 import com.example.projetfinale.services.ServiceClient;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +25,7 @@ public class ClientController {
     }
 
     @GetMapping("/searchOffers")
-    public List<Trajet> searchOffers(@RequestBody SearchCriteriaDTO criteria) {
+    public List<Offres> searchOffers(@RequestBody SearchCriteriaDTO criteria) {
         return serviceClient.executeSearch(criteria);
     }
 

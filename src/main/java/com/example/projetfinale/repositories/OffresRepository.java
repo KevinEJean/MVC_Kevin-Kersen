@@ -10,8 +10,8 @@ import com.example.projetfinale.models.RegistreOffres;
 
 @Repository
 public interface OffresRepository extends JpaRepository<RegistreOffres, Integer> {
-    List<Offres> getList()
-    Offres getOffresById(int id)
+    List<Offres> getList();
+    // Offres getOffresById(int id);
     List<Offres> findTrainsByType(int attr0, int attr1, String attr2);
     List<Offres> findVolsByType(int attr0, int attr1, String attr2);
 }

@@ -1,8 +1,8 @@
 package com.example.projetfinale.services;
 
 import com.example.projetfinale.models.Offres;
+import com.example.projetfinale.models.RegistreOffres;
 import com.example.projetfinale.models.SearchCriteriaDTO;
-import com.example.projetfinale.models.trajet.Trajet;
 import com.example.projetfinale.repositories.StrategieRechercheOffres;
 import com.example.projetfinale.repositories.OffresRepository;
 import org.springframework.stereotype.Service;
@@ -13,11 +13,9 @@ import java.util.List;
 public class ServiceClient {
 
     private final RechercheOffresTrajetTrain rechercheOffresTrajetTrain;
-    private final StrategieRechercheOffres strategieRechercheOffres;
     private final OffresRepository offresRepository;
-    public ServiceClient(RechercheOffresTrajetTrain rechercheOffresTrajetTrain, StrategieRechercheOffres strategieRechercheOffres, OffresRepository offresRepository) {
+    public ServiceClient(RechercheOffresTrajetTrain rechercheOffresTrajetTrain, OffresRepository offresRepository) {
         this.rechercheOffresTrajetTrain = rechercheOffresTrajetTrain;
-        this.strategieRechercheOffres = strategieRechercheOffres;
         this.offresRepository = offresRepository;
     }
 
@@ -39,10 +37,10 @@ public class ServiceClient {
         try {
             List<Offres> allOfers = offresRepository.getList();
             for (Offres currentOffer : allOfers) {
-                if (currentOffer.getId().equals(id)) {
+                if (currentOffer.getId() == id) {
                     if (!currentOffer.getSieges().isEstReserver()) {
                         currentOffer.getSieges().setEstReserver(true);
-                        offresRepository.save(currentOffer);
+                        offresRepository.save(RegistreOffres.getInstance());
                         return true;
                     }
                 }

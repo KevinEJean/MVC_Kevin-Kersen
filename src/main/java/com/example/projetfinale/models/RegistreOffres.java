@@ -2,6 +2,7 @@ package com.example.projetfinale.models;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
 public class RegistreOffres {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private List<Offres> listeOffres;
     private static RegistreOffres instance = new RegistreOffres();

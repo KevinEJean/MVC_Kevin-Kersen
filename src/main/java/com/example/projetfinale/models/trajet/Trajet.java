@@ -29,23 +29,32 @@ public abstract class Trajet {
     }
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
+
     @ManyToOne
     @JoinColumn(name = "orgine_id", referencedColumnName = "id")
     private Aeroport origine;
+
     @ManyToOne
     @JoinColumn(name = "destination_id", referencedColumnName = "id")
     private Aeroport destination;
+
     private String date;
     private String duree;
     private String heureArriver;
     private String heureDepart;
+
     @ManyToOne
     @JoinColumn(name = "operateur_id", referencedColumnName = "id")
     private Operateur operateur;
+
     private TypeTrajet type;
 
+
+
+
+    
     public String getId() {
         return id;
     }
