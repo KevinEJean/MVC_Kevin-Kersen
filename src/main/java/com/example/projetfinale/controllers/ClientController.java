@@ -1,5 +1,6 @@
 package com.example.projetfinale.controllers;
 
+import com.example.projetfinale.models.Offres;
 import com.example.projetfinale.models.SearchCriteriaDTO;
 import com.example.projetfinale.models.trajet.Trajet;
 import com.example.projetfinale.services.ServiceClient;
@@ -9,6 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
+
 
 @RestController
 @RequestMapping("/client")
@@ -20,8 +25,13 @@ public class ClientController {
         this.serviceClient = serviceClient;
     }
 
-    @GetMapping("/search")
-    public List<Trajet> searchOffers(SearchCriteriaDTO criteria) {
+    @GetMapping("/searchOffers")
+    public List<Trajet> searchOffers(@RequestBody SearchCriteriaDTO criteria) {
         return serviceClient.executeSearch(criteria);
+    }
+
+    @PutMapping("reserveOffer/{id}")
+    public boolean reserveOffer(@PathVariable int id) {        
+        return serviceClient.reserve(id);
     }
 }

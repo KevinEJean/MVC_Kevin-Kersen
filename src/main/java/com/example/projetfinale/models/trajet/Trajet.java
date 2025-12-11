@@ -12,10 +12,10 @@ import com.example.projetfinale.models.Operateur;
 @DiscriminatorColumn(name = "type_trajet", discriminatorType = DiscriminatorType.STRING)
 public abstract class Trajet {
 
-    public Trajet(Aeroport origine_id, Aeroport destination_id, Operateur operateur_id, String date, String duree, String heureArriver, String heureDepart) {
-        this.origine = origine_id;
-        this.destination = destination_id;
-        this.operateur = operateur_id;
+    public Trajet(Aeroport origine, Aeroport destination, Operateur operateur, String date, String duree, String heureArriver, String heureDepart) {
+        this.origine = origine;
+        this.destination = destination;
+        this.operateur = operateur;
         this.date = date;
         this.duree = duree;
         this.heureArriver = heureArriver;

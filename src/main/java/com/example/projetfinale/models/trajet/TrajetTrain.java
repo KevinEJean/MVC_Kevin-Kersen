@@ -10,13 +10,16 @@ import jakarta.persistence.Id;
 @DiscriminatorValue("train")
 public class TrajetTrain extends Trajet {
 
-    @Id
-    private String id;
-
     public TrajetTrain(Aeroport origineId, Aeroport destinationId, Operateur operateurId, String date, String duree, String heureArriver, String heureDepart, TypeTrajet type) {
         super(origineId, destinationId, operateurId, date, duree, heureArriver, heureDepart, type);
     }
 
+    public TrajetTrain() {
+        super();
+    }
+
+    @Id
+    private String id;
     private enum Section {
         F,
         A,

@@ -8,5 +8,4 @@ import java.util.List;
 
 @Repository
 public interface FabriqueTrajet extends JpaRepository<Trajet, String> {
-    List<Trajet> findTrainsByType(int attr0, int attr1, String attr2);
 }

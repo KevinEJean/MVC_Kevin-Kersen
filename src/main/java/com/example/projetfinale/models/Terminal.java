@@ -1,10 +1,17 @@
 package com.example.projetfinale.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
-public class Terminal {
+@Entity
+@Table(name = "terminal")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "type_terminal", discriminatorType = DiscriminatorType.STRING)
+public abstract class Terminal {
+
+    public Terminal(String code, String ville) {
+        this.code = code;
+        this.ville = ville;
+    }
 
     @Id
     @GeneratedValue

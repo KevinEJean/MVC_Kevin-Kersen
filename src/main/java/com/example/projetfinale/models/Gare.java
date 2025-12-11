@@ -1,11 +1,19 @@
 package com.example.projetfinale.models;
 
+import com.example.projetfinale.models.trajet.TypeTrajet;
+
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 
 @Entity
+@DiscriminatorValue("gare")
 public class Gare extends Terminal {
+
+    public Gare(String code, String ville) {
+        super(code, ville);
+    }
 
     @Id
     @GeneratedValue

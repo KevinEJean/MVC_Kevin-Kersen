@@ -2,17 +2,22 @@ package com.example.projetfinale.models;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
 
 @Entity
 public class Operateur {
 
     @Id
+    @GeneratedValue
+    private int id;
     private String code;
     private String nom;
 
+    public int getId() {
         return id;
     }
 
+    public void setId(int id) {
         this.id = id;
     }
 

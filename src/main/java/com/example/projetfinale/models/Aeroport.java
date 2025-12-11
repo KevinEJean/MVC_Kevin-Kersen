@@ -1,17 +1,29 @@
 package com.example.projetfinale.models;
 
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 
 @Entity
+@DiscriminatorValue("aeroport")
+public class Aeroport extends Terminal {
 
+    public Aeroport(String code, String ville) {
+        super(code, ville);
+    }
+    
     @Id
+    @GeneratedValue
+    private int id;
     private String code;
     private String ville;
 
+    public int getId() {
         return id;
     }
 
+    public void setId(int id) {
         this.id = id;
     }
 

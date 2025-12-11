@@ -1,8 +1,9 @@
 package com.example.projetfinale.services;
 
+import com.example.projetfinale.models.Offres;
 import com.example.projetfinale.models.SearchCriteriaDTO;
 import com.example.projetfinale.repositories.StrategieRechercheOffres;
-import com.example.projetfinale.models.trajet.Trajet;
+import com.example.projetfinale.repositories.OffresRepository;
 import com.example.projetfinale.models.trajet.TypeTrajet;
 import com.example.projetfinale.repositories.FabriqueTrajet;
 import org.springframework.stereotype.Service;
@@ -12,8 +13,8 @@ import java.util.List;
 @Service
 public class RechercheOffresVol implements StrategieRechercheOffres {
 
-    private final FabriqueTrajet trajetRepository;
-    RechercheOffresVol(FabriqueTrajet trajetRepository) {
+    private final OffresRepository trajetRepository;
+    RechercheOffresVol(OffresRepository trajetRepository) {
         this.trajetRepository = trajetRepository;
     }
 
@@ -23,11 +24,11 @@ public class RechercheOffresVol implements StrategieRechercheOffres {
     }
 
     @Override
-    public List<Trajet> search(SearchCriteriaDTO criteria) {
+    public List<Offres> search(SearchCriteriaDTO criteria) {
         if (criteria.getOrigineId() == null || criteria.getDestinationId() == null || criteria.getDate() == null) {
             throw new IllegalArgumentException("Invalid search criteria");
         }
-        return trajetRepository.findTrainsByType(
+        return trajetRepository.findVolsByType(
                 criteria.getOrigineId(), criteria.getDestinationId(), criteria.getDate()
         );
     }
