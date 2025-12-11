@@ -3,21 +3,24 @@ package com.example.projetfinale.models;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
 @DiscriminatorValue("aeroport")
-public class Aeroport extends Terminal {
-
-    public Aeroport(String code, String ville) {
-        super(code, ville);
-    }
+public class Aeroport {
     
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String code;
     private String ville;
+
+    public Aeroport(String code, String ville) {
+        this.code = code;
+        this.ville = ville;
+    }
+    public Aeroport() {}
 
     public int getId() {
         return id;

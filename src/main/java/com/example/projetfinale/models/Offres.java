@@ -1,19 +1,39 @@
 package com.example.projetfinale.models;
 
 import com.example.projetfinale.models.trajet.Trajet;
+import jakarta.persistence.*;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import java.util.List;
 
+@Entity
 public class Offres {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private Trajet trajet_id;
-    private Operateur operateur_id;
+    
+    @ManyToOne
+    @JoinColumn(name = "trajet_id", referencedColumnName = "id")
+    private Trajet trajet;
+
+    @ManyToOne
+    @JoinColumn(name = "operateur_id", referencedColumnName = "id")
+    private Operateur operateur;
+
     private String depart;
-    private double prix_base;
-    private Sieges sieges;
+    private double prixBase;
+
+    @OneToMany(mappedBy = "offre", cascade = CascadeType.ALL)
+    private List<Sieges> sieges;
+
+    public Offres(Trajet trajetId, Operateur operateurId, String depart, double prixBase) {
+        this.trajet = trajetId;
+        this.operateur = operateurId;
+        this.depart = depart;
+        this.prixBase = prixBase;
+    }
+
+    public Offres() {}
 
     public int getId() {
         return id;
@@ -23,20 +43,20 @@ public class Offres {
         this.id = id;
     }
 
-    public Trajet getTrajet_id() {
-        return trajet_id;
+    public Trajet getTrajet() {
+        return trajet;
     }
 
-    public void setTrajet_id(Trajet trajet_id) {
-        this.trajet_id = trajet_id;
+    public void setTrajet(Trajet trajet) {
+        this.trajet = trajet;
     }
 
-    public Operateur getOperateur_id() {
-        return operateur_id;
+    public Operateur getOperateur() {
+        return operateur;
     }
 
-    public void setOperateur_id(Operateur operateur_id) {
-        this.operateur_id = operateur_id;
+    public void setOperateur(Operateur operateur) {
+        this.operateur = operateur;
     }
 
     public String getDepart() {
@@ -47,19 +67,19 @@ public class Offres {
         this.depart = depart;
     }
 
-    public double getPrix_base() {
-        return prix_base;
+    public double getPrixBase() {
+        return prixBase;
     }
 
-    public void setPrix_base(double prix_base) {
-        this.prix_base = prix_base;
+    public void setPrixBase(double prixBase) {
+        this.prixBase = prixBase;
     }
 
-    public Sieges getSieges() {
+    public List<Sieges> getSieges() {
         return sieges;
     }
 
-    public void setSieges(Sieges sieges) {
+    public void setSieges(List<Sieges> sieges) {
         this.sieges = sieges;
     }
 }

@@ -1,18 +1,42 @@
 package com.example.projetfinale.models.trajet;
 
 import com.example.projetfinale.models.Aeroport;
+import com.example.projetfinale.models.Sieges;
 import jakarta.persistence.*;
 
-import com.example.projetfinale.models.Terminal;
 import com.example.projetfinale.models.Operateur;
 
 @Entity
 @Table(name = "trajet")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "type_trajet", discriminatorType = DiscriminatorType.STRING)
-public abstract class Trajet {
+public class Trajet {
 
-    public Trajet(Aeroport origine, Aeroport destination, Operateur operateur, String date, String duree, String heureArriver, String heureDepart) {
+    @Id
+    private int id;
+
+    private String numero;
+
+    @ManyToOne
+    @JoinColumn(name = "origine_id", referencedColumnName = "id")
+    private Aeroport origine;
+
+    @ManyToOne
+    @JoinColumn(name = "destination_id", referencedColumnName = "id")
+    private Aeroport destination;
+
+    private String date;
+    private String duree;
+    private String heureArriver;
+    private String heureDepart;
+
+    @ManyToOne
+    @JoinColumn(name = "operateur_id", referencedColumnName = "id")
+    private Operateur operateur;
+
+
+    public Trajet(String numero, Aeroport origine, Aeroport destination, Operateur operateur, String date, String duree, String heureArriver, String heureDepart) {
+        this.numero = numero;
         this.origine = origine;
         this.destination = destination;
         this.operateur = operateur;
@@ -22,39 +46,27 @@ public abstract class Trajet {
         this.heureDepart = heureDepart;
     }
 
-    public Trajet(Aeroport origine, Aeroport destination, Operateur operateur, String date, String duree, String heureArriver, String heureDepart, TypeTrajet type) {
-    }
-
     public Trajet() {
     }
 
-    @Id
-    @GeneratedValue
-    private String id;
-    @ManyToOne
-    @JoinColumn(name = "orgine_id", referencedColumnName = "id")
-    private Aeroport origine;
-    @ManyToOne
-    @JoinColumn(name = "destination_id", referencedColumnName = "id")
-    private Aeroport destination;
-    private String date;
-    private String duree;
-    private String heureArriver;
-    private String heureDepart;
-    @ManyToOne
-    @JoinColumn(name = "operateur_id", referencedColumnName = "id")
-    private Operateur operateur;
-    private TypeTrajet type;
 
-    public String getId() {
+    public String getNumero() {
+        return numero;
+    }
+
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
+
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public Terminal getOrigine() {
+    public Aeroport getOrigine() {
         return origine;
     }
 
@@ -62,7 +74,7 @@ public abstract class Trajet {
         this.origine = origine;
     }
 
-    public Terminal getDestination() {
+    public Aeroport getDestination() {
         return destination;
     }
 

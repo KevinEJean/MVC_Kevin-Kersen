@@ -1,8 +1,14 @@
 package com.example.projetfinale.controllers;
 
+import com.example.projetfinale.models.Aeroport;
+import com.example.projetfinale.models.Offres;
+import com.example.projetfinale.models.Operateur;
+import com.example.projetfinale.models.Sieges;
 import com.example.projetfinale.models.trajet.Trajet;
-import com.example.projetfinale.models.trajet.TrajetDTO;
+import com.example.projetfinale.models.trajet.TrajetVol;
+import com.example.projetfinale.models.trajet.TypeTrajet;
 import com.example.projetfinale.services.ServiceAdmin;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,14 +22,17 @@ public class AdminController {
     }
 
     @PostMapping("/creerTrajetVol")
-    public Trajet creerTrajetVol(@RequestBody TrajetDTO trajetDTO) {
-        // Convert DTO to Trajet (or call a service method that does this)
-        return serviceAdmin.creerTrajetVol(trajetDTO);
+    public ResponseEntity<TrajetVol> creerTrajetVol(
+            @RequestParam String numero,
+            @RequestParam int origine,
+            @RequestParam int destination,
+            @RequestParam String duree,
+            @RequestParam int id
+    ) {
+        return ResponseEntity.ok(
+                serviceAdmin.creerTrajetVol(numero, origine, destination, duree, id)
+        );
     }
 
-    @PostMapping("/creerTrajetTrain")
-    public Trajet creerTrajetTrain(@RequestBody TrajetDTO trajetDTO) {
-        // Convert DTO to Trajet (or call a service method that does this)
-        return serviceAdmin.creerTrajetTrain(trajetDTO);
-    }
+
 }

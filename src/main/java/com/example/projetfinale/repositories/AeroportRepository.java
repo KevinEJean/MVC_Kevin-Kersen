@@ -1,11 +1,9 @@
 package com.example.projetfinale.repositories;
 
-import com.example.projetfinale.models.trajet.Trajet;
+import com.example.projetfinale.models.Aeroport;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
-public interface FabriqueTrajet extends JpaRepository<Trajet, String> {
+public interface AeroportRepository extends JpaRepository<Aeroport, Integer> {
 }

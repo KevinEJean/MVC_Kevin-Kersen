@@ -1,18 +1,13 @@
 package com.example.projetfinale.controllers;
 
 import com.example.projetfinale.models.Offres;
-import com.example.projetfinale.models.SearchCriteriaDTO;
-import com.example.projetfinale.models.trajet.Trajet;
+import com.example.projetfinale.models.Sieges;
 import com.example.projetfinale.services.ServiceClient;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PathVariable;
 
 
 @RestController
@@ -25,13 +20,37 @@ public class ClientController {
         this.serviceClient = serviceClient;
     }
 
-    @GetMapping("/searchOffers")
-    public List<Trajet> searchOffers(@RequestBody SearchCriteriaDTO criteria) {
-        return serviceClient.executeSearch(criteria);
+    @PutMapping("/getOffre")
+    public ResponseEntity<ArrayList<Offres>> getOffre(
+            @RequestParam int trajet,
+            @RequestParam String date,
+            @RequestParam String section
+    ) {
+        return ResponseEntity.ok(
+                serviceClient.rechercherOffreVol(trajet, date, section)
+        );
     }
 
-    @PutMapping("reserveOffer/{id}")
-    public boolean reserveOffer(@PathVariable int id) {        
-        return serviceClient.reserve(id);
+    @PutMapping("/payerOffre")
+    public ResponseEntity<Sieges> payerOffre(
+            @RequestParam int id,
+            @RequestParam String siege_numero,
+            @RequestParam String numeroCarte,
+            @RequestParam String cvv,
+            @RequestParam String nom
+    ) {
+        return ResponseEntity.ok(
+               serviceClient.payerOffreVol(id, siege_numero, numeroCarte, cvv, nom)
+        );
+    }
+
+    @PutMapping("/reserverOffre")
+    public ResponseEntity<Sieges> reserverOffre(
+            @RequestParam int id,
+            @RequestParam String siege_numero
+    ) {
+        return ResponseEntity.ok(
+                serviceClient.reserverOffreVol(id, siege_numero)
+        );
     }
 }
