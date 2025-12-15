@@ -1,7 +1,5 @@
 package com.example.projetfinale.services;
 
-import com.example.projetfinale.models.Aeroport;
-import com.example.projetfinale.models.Operateur;
 import com.example.projetfinale.models.trajet.*;
 import com.example.projetfinale.repositories.AeroportRepository;
 import com.example.projetfinale.repositories.FrabriquerTrajet;
