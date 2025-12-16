@@ -7,6 +7,7 @@ import com.example.projetfinale.repositories.AeroportRepository;
 import com.example.projetfinale.repositories.FabriquerTrajet;
 import com.example.projetfinale.repositories.OffreRepository;
 import com.example.projetfinale.services.ServiceAdmin;
+import com.example.projetfinale.services.ServiceSearch;
 
 import org.junit.jupiter.api.Test;
 
@@ -15,13 +16,20 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
+import org.mockito.Mock;
 
 class ServiceAdminTest {
 
+    @Mock
     private ServiceAdmin serviceAdmin;
+    @Mock
     private FabriquerTrajet trajetRepository;
+    @Mock
     private AeroportRepository aeroportRepository;
+    @Mock
     private OffreRepository offreRepository;
+    @Mock
+    private ServiceSearch serviceSearch;
 
     @Test
     void testCreerTrajetVol() {
@@ -66,5 +74,30 @@ class ServiceAdminTest {
 
         verify(offreRepository, times(1)).delete(offre);
         verify(trajetRepository, times(1)).delete(trajet);
+    }
+
+    @Test
+    void testTrierOffresParPrix() {
+        Offres offre = new Offres();
+        offre.setPrixBase(500);
+
+        Offres offre2 = new Offres();
+        offre2.setPrixBase(150);
+
+        Offres offre3 = new Offres();
+        offre3.setPrixBase(325);
+
+        List<Offres> listeOffres = new ArrayList<>();
+        listeOffres.add(offre);
+        listeOffres.add(offre2);
+        listeOffres.add(offre3);
+
+        when(offreRepository.findAll()).thenReturn(new ArrayList<>(listeOffres));
+
+        List<Offres> result = serviceSearch.trierOffresParPrix("DESC");
+
+        assertEquals(500, result.get(0).getPrixBase());
+        assertEquals(325, result.get(1).getPrixBase());
+        assertEquals(150, result.get(2).getPrixBase());
     }
 }
