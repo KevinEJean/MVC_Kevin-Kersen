@@ -24,7 +24,7 @@ public class Offres {
     private double prixBase;
 
     @OneToMany(mappedBy = "offre", cascade = CascadeType.ALL)
-    private List<Sieges> sieges;
+    private List<Siege> sieges;
 
     public Offres(Trajet trajetId, Operateur operateurId, String depart, double prixBase) {
         this.trajet = trajetId;
@@ -75,11 +75,11 @@ public class Offres {
         this.prixBase = prixBase;
     }
 
-    public List<Sieges> getSieges() {
+    public List<Siege> getSieges() {
         return sieges;
     }
 
-    public void setSieges(List<Sieges> sieges) {
+    public void setSieges(List<Siege> sieges) {
         this.sieges = sieges;
     }
 }

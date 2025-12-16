@@ -1,7 +1,6 @@
 package com.example.projetfinale.models.trajet;
 
 import com.example.projetfinale.models.Aeroport;
-import com.example.projetfinale.models.Sieges;
 import jakarta.persistence.*;
 
 import com.example.projetfinale.models.Operateur;

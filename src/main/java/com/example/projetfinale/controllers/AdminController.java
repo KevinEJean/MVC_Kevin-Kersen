@@ -1,13 +1,9 @@
 package com.example.projetfinale.controllers;
 
 import com.example.projetfinale.models.Aeroport;
-import com.example.projetfinale.models.Offres;
-import com.example.projetfinale.models.Operateur;
-import com.example.projetfinale.models.Sieges;
-import com.example.projetfinale.models.trajet.Trajet;
 import com.example.projetfinale.models.trajet.TrajetVol;
-import com.example.projetfinale.models.trajet.TypeTrajet;
 import com.example.projetfinale.services.ServiceAdmin;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,5 +30,17 @@ public class AdminController {
         );
     }
 
+    @PostMapping("/creerAeroport")
+    public ResponseEntity<Aeroport> creerAeroport(
+            @RequestParam int id,
+            @RequestParam String code,
+            @RequestParam String ville) {
 
+        Aeroport aeroport = serviceAdmin.creerAeroport(id, code, ville);
+
+        if (aeroport == null) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>(aeroport, HttpStatus.OK);
+    }
 }

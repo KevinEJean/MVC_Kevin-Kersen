@@ -1,13 +1,12 @@
 package com.example.projetfinale.controllers;
 
 import com.example.projetfinale.models.Offres;
-import com.example.projetfinale.models.Sieges;
+import com.example.projetfinale.models.Siege;
 import com.example.projetfinale.services.ServiceClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 @RestController
@@ -32,7 +31,7 @@ public class ClientController {
     }
 
     @PutMapping("/payerOffre")
-    public ResponseEntity<Sieges> payerOffre(
+    public ResponseEntity<Siege> payerOffre(
             @RequestParam int id,
             @RequestParam String siege_numero,
             @RequestParam String numeroCarte,
@@ -45,7 +44,7 @@ public class ClientController {
     }
 
     @PutMapping("/reserverOffre")
-    public ResponseEntity<Sieges> reserverOffre(
+    public ResponseEntity<Siege> reserverOffre(
             @RequestParam int id,
             @RequestParam String siege_numero
     ) {

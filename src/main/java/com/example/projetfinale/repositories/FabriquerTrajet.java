@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface FrabriquerTrajet extends JpaRepository<Trajet, Integer> {
+public interface FabriquerTrajet extends JpaRepository<Trajet, Integer> {
 }

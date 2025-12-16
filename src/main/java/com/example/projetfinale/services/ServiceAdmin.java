@@ -1,49 +1,145 @@
 package com.example.projetfinale.services;
 
-import com.example.projetfinale.models.trajet.*;
+import com.example.projetfinale.models.Aeroport;
+import com.example.projetfinale.models.Offres;
+import com.example.projetfinale.models.Operateur;
+import com.example.projetfinale.models.Siege;
+import com.example.projetfinale.models.Siege.StatutSiege;
+import com.example.projetfinale.models.trajet.Trajet;
+import com.example.projetfinale.models.trajet.TrajetFactory;
+import com.example.projetfinale.models.trajet.TrajetVol;
+
 import com.example.projetfinale.repositories.AeroportRepository;
-import com.example.projetfinale.repositories.FrabriquerTrajet;
 import com.example.projetfinale.repositories.OffreRepository;
+import com.example.projetfinale.repositories.OperateurRepository;
+import com.example.projetfinale.repositories.TrajetVolRepository;
+import com.example.projetfinale.repositories.SiegeRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class ServiceAdmin {
 
     private final OffreRepository offreRepository;
-    private final FrabriquerTrajet trajetRepository;
+    private final TrajetVolRepository trajetRepository;
     private final AeroportRepository aeroportRepository;
+    private final OperateurRepository operateurRepository;
+    private final SiegeRepository siegeRepository;
+    private final TrajetFactory trajetFactory;
 
-    public ServiceAdmin(OffreRepository offreRepository, FrabriquerTrajet trajetRepository, AeroportRepository aeroportRepository) {
+    public ServiceAdmin(
+            OffreRepository offreRepository,
+            TrajetVolRepository trajetRepository,
+            AeroportRepository aeroportRepository,
+            OperateurRepository operateurRepository,
+            SiegeRepository siegeRepository,
+            TrajetFactory trajetFactory) {
+
         this.offreRepository = offreRepository;
         this.trajetRepository = trajetRepository;
         this.aeroportRepository = aeroportRepository;
+        this.operateurRepository = operateurRepository;
+        this.siegeRepository = siegeRepository;
+        this.trajetFactory = trajetFactory;
     }
 
+    @Transactional
     public TrajetVol creerTrajetVol(
             String numero,
-            int origine,
-            int destination,
-            String durree,
-            int id
+            int origineId,
+            int destinationId,
+            String duree,
+            int trajetVolId
     ) {
-        try {
-            Aeroport aeroportOrigine = aeroportRepository.getById(origine);
-            Aeroport aeroportDst = aeroportRepository.getById(destination);
+        final int operateurId = 1;
+        final String dateVol = "2025-12-25";
+        final double prixDeBase = 500.00;
 
-            TrajetVol newTrajet = new TrajetVol();
-            newTrajet.setId(id);
+        try {
+            Aeroport aeroportOrigine = aeroportRepository.findById(origineId).orElseThrow(
+                    () -> new IllegalArgumentException("Aéroport d'origine non trouvé: " + origineId)
+            );
+            Aeroport aeroportDst = aeroportRepository.findById(destinationId).orElseThrow(
+                    () -> new IllegalArgumentException("Aéroport de destination non trouvé: " + destinationId)
+            );
+            Operateur operateur = operateurRepository.findById(operateurId).orElseThrow(
+                    () -> new IllegalArgumentException("Opérateur non trouvé (ID 1 requis):")
+            );
+
+            Trajet trajet = trajetFactory.createTrajet("VOL");
+
+            if (!(trajet instanceof TrajetVol)) {
+                throw new IllegalStateException("La Factory n'a pas retourné un TrajetVol.");
+            }
+            TrajetVol newTrajet = (TrajetVol) trajet;
+
+            newTrajet.setId(trajetVolId);
             newTrajet.setNumero(numero);
             newTrajet.setOrigine(aeroportOrigine);
             newTrajet.setDestination(aeroportDst);
-            newTrajet.setDuree(durree);
+            newTrajet.setDuree(duree);
+            newTrajet.setDate(dateVol);
+            newTrajet.setHeureDepart("14:00");
+            newTrajet.setHeureArriver("22:30");
+            newTrajet.setOperateur(operateur);
+
+            Offres offre = new Offres();
+            offre.setTrajet(newTrajet);
+            offre.setOperateur(operateur);
+            offre.setDepart(dateVol);
+            offre.setPrixBase(prixDeBase);
+
+            List<Siege> sieges = new ArrayList<>();
+            for (String section : new String[]{"Economie", "Affaires"}) {
+                int count = section.equals("Economie") ? 3 : 1;
+                String suffixe = section.equals("Economie") ? "A" : "D";
+
+                for (int i = 1; i <= count; i++) {
+                    Siege siege = new Siege();
+                    siege.setNumeroSiege(i + suffixe);
+                    siege.setSection(section);
+                    siege.setStatut(StatutSiege.DISPONIBLE);
+                    siege.setOffre(offre);
+                    sieges.add(siege);
+                }
+            }
+            offre.setSieges(sieges);
+
             trajetRepository.save(newTrajet);
+            offreRepository.save(offre);
+            siegeRepository.saveAll(sieges);
 
             return newTrajet;
 
+        } catch (IllegalArgumentException e) {
+            System.err.println("Erreur de donnée (ID non trouvé): " + e.getMessage());
+            return null;
         } catch (Exception e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    public Aeroport creerAeroport(int id, String code, String ville) {
+        Aeroport existingAeroport = aeroportRepository.findById(id).orElse(null);
+
+        if (existingAeroport != null) {
+            System.out.println("L'aéroport avec l'ID " + id + " existe déjà.");
+
+            existingAeroport.setCode(code);
+            existingAeroport.setVille(ville);
+            return aeroportRepository.save(existingAeroport);
+
+        } else {
+            Aeroport newAeroport = new Aeroport();
+            newAeroport.setId(id);
+            newAeroport.setCode(code);
+            newAeroport.setVille(ville);
+
+            return aeroportRepository.save(newAeroport);
         }
     }
 }
