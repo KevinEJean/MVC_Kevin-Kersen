@@ -1,9 +1,6 @@
 package com.example.projetfinale.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Sieges {
@@ -11,9 +8,15 @@ public class Sieges {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private boolean estReserver;
-    private int numeroSiege;
+
+    private String statut = "DISPONIBLE";
+
+    @ManyToOne
+    @JoinColumn(name = "offre_id")
+    private Offres offre;
+
     private String section;
+    private String numeroSiege;
     private enum preferenceSiege {
         FENETRE,
         COULOIR,
@@ -40,20 +43,12 @@ public class Sieges {
         this.id = id;
     }
 
-    public boolean isEstReserver() {
-        return estReserver;
+    public String getStatut() {
+        return statut;
     }
 
-    public void setEstReserver(boolean estReserver) {
-        this.estReserver = estReserver;
-    }
-
-    public int getNumeroSiege() {
-        return numeroSiege;
-    }
-
-    public void setNumeroSiege(int numeroSiege) {
-        this.numeroSiege = numeroSiege;
+    public void setStatut(String statut) {
+        this.statut = statut;
     }
 
     public String getSection() {
@@ -62,5 +57,13 @@ public class Sieges {
 
     public void setSection(String section) {
         this.section = section;
+    }
+
+    public String getNumeroSiege() {
+        return numeroSiege;
+    }
+
+    public void setNumeroSiege(String numeroSiege) {
+        this.numeroSiege = numeroSiege;
     }
 }

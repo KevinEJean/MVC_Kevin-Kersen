@@ -8,4 +8,10 @@ public class Section {
 
     @Id
     private String id;
+    private enum section {
+        F,
+        A,
+        P,
+        E
+    }
 }

@@ -1,17 +1,12 @@
 package com.example.projetfinale.models;
 
 import com.example.projetfinale.models.trajet.Trajet;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 public class Offres {
-
-    public Offres() {}
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,9 +23,17 @@ public class Offres {
     private String depart;
     private double prixBase;
 
-    @ManyToOne
-    @JoinColumn(name = "sieges_id", referencedColumnName = "id")
-    private Sieges sieges;
+    @OneToMany(mappedBy = "offre", cascade = CascadeType.ALL)
+    private List<Sieges> sieges;
+
+    public Offres(Trajet trajetId, Operateur operateurId, String depart, double prixBase) {
+        this.trajet = trajetId;
+        this.operateur = operateurId;
+        this.depart = depart;
+        this.prixBase = prixBase;
+    }
+
+    public Offres() {}
 
     public int getId() {
         return id;
@@ -72,11 +75,11 @@ public class Offres {
         this.prixBase = prixBase;
     }
 
-    public Sieges getSieges() {
+    public List<Sieges> getSieges() {
         return sieges;
     }
 
-    public void setSieges(Sieges sieges) {
+    public void setSieges(List<Sieges> sieges) {
         this.sieges = sieges;
     }
 }
