@@ -6,12 +6,9 @@ import com.example.projetfinale.models.trajet.*;
 import com.example.projetfinale.repositories.AeroportRepository;
 import com.example.projetfinale.repositories.FrabriquerTrajet;
 import com.example.projetfinale.repositories.OffreRepository;
-<<<<<<< HEAD
 
 import jakarta.transaction.Transactional;
 
-=======
->>>>>>> 6c8ff2a5431d9b4d8659576e5b1844b35fa5c6ca
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -20,25 +17,14 @@ import java.util.List;
 @Service
 public class ServiceAdmin {
 
-<<<<<<< HEAD
     private final FrabriquerTrajet trajetRepository;
     private final AeroportRepository aeroportRepository;
     private final OffreRepository offreRepository;
-
-    public ServiceAdmin(FrabriquerTrajet trajetRepository, AeroportRepository aeroportRepository, OffreRepository offreRepository) {
-        this.trajetRepository = trajetRepository;
-        this.aeroportRepository = aeroportRepository;
-        this.offreRepository = offreRepository;
-=======
-    private final OffreRepository offreRepository;
-    private final FrabriquerTrajet trajetRepository;
-    private final AeroportRepository aeroportRepository;
 
     public ServiceAdmin(OffreRepository offreRepository, FrabriquerTrajet trajetRepository, AeroportRepository aeroportRepository) {
         this.offreRepository = offreRepository;
         this.trajetRepository = trajetRepository;
         this.aeroportRepository = aeroportRepository;
->>>>>>> 6c8ff2a5431d9b4d8659576e5b1844b35fa5c6ca
     }
 
     public TrajetVol creerTrajetVol(
@@ -59,7 +45,6 @@ public class ServiceAdmin {
             newTrajet.setDestination(aeroportDst);
             newTrajet.setDuree(durree);
             trajetRepository.save(newTrajet);
-<<<<<<< HEAD
 
             return newTrajet;
 
@@ -90,11 +75,7 @@ public class ServiceAdmin {
             trajetRepository.save(trajetChoisi);
 
             return trajetChoisi;
-=======
-
-            return newTrajet;
-
->>>>>>> 6c8ff2a5431d9b4d8659576e5b1844b35fa5c6ca
+            
         } catch (Exception e) {
             e.printStackTrace();
             return null;
