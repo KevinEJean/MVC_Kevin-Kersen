@@ -4,7 +4,7 @@ import com.example.projetfinale.models.Aeroport;
 import com.example.projetfinale.models.Offres;
 import com.example.projetfinale.models.trajet.TrajetVol;
 import com.example.projetfinale.repositories.AeroportRepository;
-import com.example.projetfinale.repositories.FrabriquerTrajet;
+import com.example.projetfinale.repositories.FabriquerTrajet;
 import com.example.projetfinale.repositories.OffreRepository;
 import com.example.projetfinale.services.ServiceAdmin;
 
@@ -19,7 +19,7 @@ import static org.mockito.Mockito.*;
 class ServiceAdminTest {
 
     private ServiceAdmin serviceAdmin;
-    private FrabriquerTrajet trajetRepository;
+    private FabriquerTrajet trajetRepository;
     private AeroportRepository aeroportRepository;
     private OffreRepository offreRepository;
 

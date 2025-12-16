@@ -31,24 +31,24 @@ public class ClientController {
 
     @PutMapping("/payerOffre")
     public ResponseEntity<Siege> payerOffre(
-            @RequestParam int id,
+            @RequestParam int trajet_id,
             @RequestParam String siege_numero,
-            @RequestParam String numeroCarte,
+            @RequestParam String numero_carte,
             @RequestParam String cvv,
             @RequestParam String nom
     ) {
         return ResponseEntity.ok(
-               serviceClient.payerOffreVol(id, siege_numero, numeroCarte, cvv, nom)
+               serviceClient.payerOffreVol(trajet_id, siege_numero, numero_carte, cvv, nom)
         );
     }
 
     @PutMapping("/reserverOffre")
     public ResponseEntity<Siege> reserverOffre(
-            @RequestParam int id,
+            @RequestParam int trajet_id,
             @RequestParam String siege_numero
     ) {
         return ResponseEntity.ok(
-                serviceClient.reserverOffreVol(id, siege_numero)
+                serviceClient.reserverOffreVol(trajet_id, siege_numero)
         );
     }
 }

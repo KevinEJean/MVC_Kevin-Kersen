@@ -145,7 +145,7 @@ public class ServiceAdmin {
         }
     }
 
-    /*public Trajet modifierTrajetVol(int id, String numero) {
+    public Trajet modifierTrajetVol(int id, String numero) {
         try {
             Trajet trajetChoisi = null;
 
@@ -163,7 +163,7 @@ public class ServiceAdmin {
 
             trajetChoisi.setNumero(numero);
 
-            trajetRepository.save(trajetChoisi);
+            trajetRepository.save((TrajetVol) trajetChoisi);
 
             return trajetChoisi;
 
@@ -171,7 +171,7 @@ public class ServiceAdmin {
             e.printStackTrace();
             return null;
         }
-    } */
+    }
 
     public Trajet getTrajet(int id) {
         try {
@@ -192,7 +192,7 @@ public class ServiceAdmin {
         }
     }
 
-    /* @jakarta.transaction.Transactional
+    @jakarta.transaction.Transactional
     public void supprimerTrajet(int id) {
         try {
             Trajet trajetChoisi = null;
@@ -225,13 +225,13 @@ public class ServiceAdmin {
                 return;
             }
 
-            trajetRepository.delete(trajetChoisi);
+            trajetRepository.delete((TrajetVol) trajetChoisi);
 
         } catch (Exception e) {
             System.out.println("Erreur lors de la supression du trajet");
             e.printStackTrace();
         }
-    } */
+    }
 
     public Operateur creerOperateur(int id, String nom) {
         Operateur existingOperateur = operateurRepository.findById(id).orElse(null);

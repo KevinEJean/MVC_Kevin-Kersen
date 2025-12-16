@@ -50,6 +50,7 @@ public class AdminController {
         );
     }
 
+
     @DeleteMapping("/supprimerTrajet")
     public void supprimerTrajet(@RequestParam int trajet_id) {
         serviceAdmin.supprimerTrajet(trajet_id);
