@@ -11,7 +11,7 @@ public class Operateur {
     public Operateur() {}
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    // @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String code;
     private String nom;

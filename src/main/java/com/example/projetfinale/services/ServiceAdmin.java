@@ -20,6 +20,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.util.List;
+
 @Service
 public class ServiceAdmin {
 
@@ -140,6 +142,109 @@ public class ServiceAdmin {
             newAeroport.setVille(ville);
 
             return aeroportRepository.save(newAeroport);
+        }
+    }
+
+    /*public Trajet modifierTrajetVol(int id, String numero) {
+        try {
+            Trajet trajetChoisi = null;
+
+            List<TrajetVol> listTrajet = trajetRepository.findAll();
+            for (Trajet trajet : listTrajet) {
+                if (trajet.getId() == id) {
+                    trajetChoisi = trajet;
+                }
+            }
+
+            if (trajetChoisi == null) {
+                System.out.println("Le trajet n'existe pas");
+                return null;
+            }
+
+            trajetChoisi.setNumero(numero);
+
+            trajetRepository.save(trajetChoisi);
+
+            return trajetChoisi;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    } */
+
+    public Trajet getTrajet(int id) {
+        try {
+            Trajet trajetChoisi = null;
+
+            List<TrajetVol> listTrajet = trajetRepository.findAll();
+            for (Trajet trajet : listTrajet) {
+                if (trajet.getId() == id) {
+                    trajetChoisi = trajet;
+                }
+            }
+
+            return trajetChoisi;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /* @jakarta.transaction.Transactional
+    public void supprimerTrajet(int id) {
+        try {
+            Trajet trajetChoisi = null;
+            Offres offreAssocie = null;
+
+            List<TrajetVol> listTrajet = trajetRepository.findAll();
+            for (Trajet trajet : listTrajet) {
+                if (trajet.getId() == id) {
+                    trajetChoisi = trajet;
+                    break;
+                }
+            }
+
+            List<Offres> listOffres = offreRepository.findAll();
+            for (Offres offre : listOffres) {
+                if (offre.getTrajet().getId() == id) {
+                    offreAssocie = offre;
+                    offreRepository.delete(offreAssocie);
+                    break;
+                }
+            }
+
+            if (trajetChoisi == null) {
+                System.out.println("Le trajet n'existe pas.");
+                return;
+            }
+
+            if (offreAssocie == null) {
+                System.out.println("Il n'y a pas d'offre associer au trajet.");
+                return;
+            }
+
+            trajetRepository.delete(trajetChoisi);
+
+        } catch (Exception e) {
+            System.out.println("Erreur lors de la supression du trajet");
+            e.printStackTrace();
+        }
+    } */
+
+    public Operateur creerOperateur(int id, String nom) {
+        Operateur existingOperateur = operateurRepository.findById(id).orElse(null);
+
+        if (existingOperateur != null) {
+            System.out.println("L'Opérateur avec l'ID " + id + " existe déjà.");
+            return existingOperateur;
+        } else {
+            Operateur newOperateur = new Operateur();
+            newOperateur.setId(id);
+            newOperateur.setNom(nom);
+
+            return operateurRepository.save(newOperateur);
         }
     }
 }
