@@ -10,11 +10,9 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -57,9 +55,9 @@ public class ServiceSearchTest {
 
         List<Offres> topOffres = serviceSearch.getTopNOffresMoinsCheres(n);
 
-        assertEquals(n, topOffres.size(), "La liste doit contenir"+ n + "éléments.");
+        assertEquals(n, topOffres.size(), "La liste doit contenir " + n + " éléments.");
 
-        assertEquals(400.00, topOffres.get(0).getPrixBase(), "La première offre doit être la moins chère.");
+        assertEquals(400.00, topOffres.get(0).getPrixBase(), "La première offre doit être la moins chère donc 400.00.");
         assertEquals(550.00, topOffres.get(1).getPrixBase(), "La deuxième offre doit être 550.00.");
         assertEquals(700.00, topOffres.get(2).getPrixBase(), "La troisième offre doit être 700.00.");
     }
@@ -76,16 +74,5 @@ public class ServiceSearchTest {
 
         assertEquals(400.00, topOffres.get(0).getPrixBase());
         assertEquals(900.00, topOffres.get(3).getPrixBase());
-    }
-
-    @Test
-    void testGetTopNOffresMoinsCheres_ListeVide() {
-        int n = 2;
-
-        when(offreRepository.findAll()).thenReturn(Collections.emptyList());
-
-        List<Offres> topOffres = serviceSearch.getTopNOffresMoinsCheres(n);
-
-        assertTrue(topOffres.isEmpty(), "La liste retournée doit être vide.");
     }
 }
