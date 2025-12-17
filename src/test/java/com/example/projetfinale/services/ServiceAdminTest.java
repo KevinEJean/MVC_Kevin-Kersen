@@ -1,4 +1,4 @@
-package com.example.projetfinale;
+package com.example.projetfinale.services;
 
 import com.example.projetfinale.models.Aeroport;
 import com.example.projetfinale.models.Offres;
@@ -6,8 +6,6 @@ import com.example.projetfinale.models.trajet.TrajetVol;
 import com.example.projetfinale.repositories.AeroportRepository;
 import com.example.projetfinale.repositories.FabriquerTrajet;
 import com.example.projetfinale.repositories.OffreRepository;
-import com.example.projetfinale.services.ServiceAdmin;
-import com.example.projetfinale.services.ServiceSearch;
 
 import org.junit.jupiter.api.Test;
 
